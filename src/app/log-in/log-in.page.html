@@ -1,0 +1,34 @@
+<ion-header translucent="true">
+  <ion-toolbar>    
+      <ion-title>CLIO</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header class="header-center">
+      <ion-card-title color="primary">Log in to CLIO</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <div class="logo"><img src="./assets/logo.png"/></div>
+      
+      <ion-item>
+        <ion-icon name="person"></ion-icon>
+        <ion-input placeholder="Username"></ion-input>
+      </ion-item>
+      <br>
+      <ion-item>
+        <ion-icon name="lock-closed"></ion-icon>
+        <ion-input placeholder="Password" type="password"></ion-input>
+      </ion-item>
+      <br>
+        <ion-button fill="outline" expand="block" (click)="logIn()">login</ion-button>
+      <div class="forgetpassword-right">
+        <ion-item>
+          <ion-label color="primary" (click)="forgotPassword()">Forgot Password?</ion-label>
+        </ion-item>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

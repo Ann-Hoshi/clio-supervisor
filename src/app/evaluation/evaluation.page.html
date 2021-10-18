@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>CLIO</ion-title>
+    <ion-button slot="start" fill="outline">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-button> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Evaluation</ion-card-title>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <ion-item-divider>
+        <ion-label>Student Name:</ion-label>
+        <ion-input></ion-input>
+      </ion-item-divider>
+      <br>
+      <h2>Remarks</h2>
+      <ion-item-divider>
+        <ion-textarea row="10" cols="20" placeholder="Leave a remarks about the intern's performance..."></ion-textarea>
+      </ion-item-divider>
+    <div class="uploadEvaluationForm">
+      <ion-button expand="block" (click)="uploadEvaluationForm()" color="Gray">
+        <ion-icon name="document-attach"></ion-icon>
+        Upload Evaluation Form</ion-button>
+    </div>
+
+    <div class="button">
+      <ion-button  fill="outline" (click)="cancelEvaluation()">Cancel</ion-button>
+      <ion-button  fill="outline" (click)="saveEvaluation()">Save</ion-button>
+    </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

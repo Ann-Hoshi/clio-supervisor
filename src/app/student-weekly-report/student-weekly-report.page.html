@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>CLIO</ion-title>
+    <ion-button slot="start" fill="outline">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-button> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Weekly Report</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-label>Student Name:</ion-label> <ion-label></ion-label>
+      <ion-item>
+        <ion-label>Week:</ion-label>
+        <ion-select cancelText="Cancel" okText="Confirm">
+          <ion-select-option value="1">1</ion-select-option>
+          <ion-select-option value="2">2</ion-select-option>
+          <ion-select-option value="3">3</ion-select-option>
+          <ion-select-option value="4">4</ion-select-option>
+          <ion-select-option value="5">5</ion-select-option>
+          <ion-select-option value="6">6</ion-select-option>
+          <ion-select-option value="7">7</ion-select-option>
+          <ion-select-option value="8">8</ion-select-option>
+          <ion-select-option value="9">9</ion-select-option>
+          <ion-select-option value="10">10</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Date:</ion-label>
+        <ion-label> </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Time start:</ion-label>
+        <ion-label> </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Time end:</ion-label>
+        <ion-label> </ion-label>
+      </ion-item>
+
+      <div class="viewDTR">
+        <ion-button (click)="viewDTR()" color="Gray">
+          <ion-icon name="document-attach"></ion-icon>
+          view DTR</ion-button>
+      </div>
+
+      <br>
+
+      <h1>Tasks</h1>
+      <ion-item-divider>
+        <ion-label> </ion-label>
+      </ion-item-divider>
+
+      <br>
+
+      <h1>Learnings</h1>
+      <ion-item-divider>
+        <ion-label> </ion-label>
+      </ion-item-divider>
+      <div class="button">
+      <ion-button  fill="outline" (click)="notValid()">Not Valid</ion-button>
+      <ion-button  fill="outline" (click)="confirm()">Confirm</ion-button>
+    </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

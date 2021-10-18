@@ -1,0 +1,16 @@
+.profilePicture{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profilePicture img{
+    width: 120px;
+    height: auto;
+}
+
+.profile{
+    display: flex;
+    justify-content: right;
+    align-items: right;
+}

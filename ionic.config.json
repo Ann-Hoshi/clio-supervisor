@@ -1,0 +1,7 @@
+{
+  "name": "CLIO_supervisor",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
