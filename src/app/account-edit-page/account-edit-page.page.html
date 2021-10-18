@@ -16,28 +16,33 @@
       </div>
 
       <ion-item>
-        <ion-label>Name:</ion-label>
-        <ion-input></ion-input>
+        <ion-label>First name:</ion-label>
+        <ion-input [(ngModel)]="firstName"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>Contact no.:</ion-label>
-        <ion-input></ion-input>
+        <ion-label>Middel name:</ion-label>
+        <ion-input [(ngModel)]="middleName"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>Company:</ion-label>
-        <ion-input></ion-input>
+        <ion-label>Last name:</ion-label>
+        <ion-input [(ngModel)]="lastName"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>Password:</ion-label>
-        <ion-input type="password"></ion-input>
+        <ion-label>Company: </ion-label>
+        <ion-input [(ngModel)]="companyName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Password: </ion-label>
+        <ion-input type="password" [(ngModel)]="password"> </ion-input>
       </ion-item>
        <br>
       <div class="profile">
        <ion-button fill="outline" (click)="accountEditPageCancel()">Cancel</ion-button>
-      <ion-button fill="outline" (click)="accountEditPageSave()">Save</ion-button>
+      <ion-button fill="outline" (click)="presentAlert()">Save</ion-button>
       </div>
     </ion-card-content>
   </ion-card>
