@@ -45,7 +45,7 @@ export class LogInPage implements OnInit {
   
       });
     
-      this.router.navigate(['/home']);
+      this.router.navigate(['/list-of-students']);
 
     },async (error:any) => {
       const toast = await this.toastCtrl.create({

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>CLIOs</ion-title>
+    <ion-title>CLIO</ion-title>
     <ion-button slot="start" fill="outline">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-button>
@@ -14,33 +14,31 @@
     </ion-card-header>
   
     <ion-card-content>    
-      <ion-item>
-        <ion-label>To:</ion-label>
-        <ion-input></ion-input>
-      </ion-item>
     
       <ion-item>
         <ion-label>From:</ion-label>
-        <ion-input></ion-input>
+        <ion-label> {{firtsName}} {{middleName}} {{lastName}} {{suffix}} </ion-label>
       </ion-item>
       <ion-item>
           <ion-label>Company:</ion-label>
-          <ion-input></ion-input>
+          <ion-label> {{companyName}} </ion-label>
+      </ion-item>
+      <ion-item>
           <ion-label>Contact no.:</ion-label>
-          <ion-input></ion-input>
+          <ion-label> {{contactNo}} </ion-label>
       </ion-item>
       <ion-item-divider>
           <ion-label>Subject:</ion-label>
-          <ion-input></ion-input>
+          <ion-input [(ngModel)]="subject" ></ion-input>
       </ion-item-divider>
       <br>
       <h3>Your Concern</h3>
       <ion-item-divider>
-        <ion-textarea row="6" cols="20" placeholder="Enter your concern here..."></ion-textarea>
+        <ion-textarea  [(ngModel)]="concern" row="6" cols="20" placeholder="Enter your concern here..."></ion-textarea>
       </ion-item-divider>
       <div class="button">
         <ion-button  fill="outline" (click)="cancelConcern()">Cancel</ion-button>
-        <ion-button  fill="outline" (click)="sendConcern()">Send</ion-button>
+        <ion-button  fill="outline" (click)="presentAlert()">Send</ion-button>
       </div>
     </ion-card-content>
   </ion-card>

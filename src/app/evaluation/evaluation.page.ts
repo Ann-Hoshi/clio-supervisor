@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import { Storage } from '@ionic/storage-angular';
+import { AlertController, ToastController } from '@ionic/angular';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-evaluation',
@@ -8,9 +11,78 @@ import {Router} from '@angular/router';
 })
 export class EvaluationPage implements OnInit {
 
-  constructor(private router: Router) { }
+  firstName : any;
+  middleName : any;
+  lastName : any;
+  suffix: any;
+
+  datauser : any;
+  username : any;
+  evaluationInfo : any;
+
+  remarks : any;
+  evaluationForm : any;
+
+
+  constructor(public alertController: AlertController,public toastCtrl: ToastController,private storage: Storage, private router: Router, public _apiService : ApiService) { }
 
   ngOnInit() {
+    this.storage.create();
+    this.storage.get('session_storage').then((res)=>{
+      this.datauser = res;
+
+      let data = {
+        username : this.datauser.username
+        
+      }
+
+      this._apiService.evaluation(data).subscribe((res:any) => {
+        console.log("SUCCESS ===",res);
+        
+        this.evaluationInfo = res.result;
+        
+        this.firstName = this.evaluationInfo.firstName;
+        this.lastName = this.evaluationInfo.lastName;
+        this.middleName = this.evaluationInfo.middleName;
+        this.suffix = this.evaluationInfo.suffix; 
+  
+      },(error:any) => {
+        console.log("ERROR ===", error);
+      }
+      )
+      
+    
+    });
+  }
+
+  ionViewWillEnter(){
+    this.storage.create();
+    this.storage.get('session_storage').then((res)=>{
+      this.datauser = res;
+
+      let data = {
+        username : this.datauser.username
+        
+      }
+
+      this._apiService.evaluation(data).subscribe((res:any) => {
+        console.log("SUCCESS ===",res);
+        
+        this.evaluationInfo = res.result;
+        
+        this.firstName = this.evaluationInfo.firstName;
+        this.lastName = this.evaluationInfo.lastName;
+        this.middleName = this.evaluationInfo.middleName;
+        this.suffix = this.evaluationInfo.suffix;
+
+  
+      },(error:any) => {
+        console.log("ERROR ===", error);
+      }
+      )
+      
+    
+    });
   }
 
   uploadEvaluationForm(){
@@ -18,10 +90,84 @@ export class EvaluationPage implements OnInit {
   }
 
   cancelEvaluation(){
+    this.remarks = ""
+    this.evaluationForm = ""
     
   }
 
   saveEvaluation(){
+    let data = {
+      username : this.datauser.username,
+      remarks : this.remarks,
+      firstName :this.firstName,
+      middleName :this.middleName,
+      lastName :this.lastName,
+      suffix :this.suffix,
+      evaluationForm : this.evaluationForm
+    }
+
     
+    this._apiService.evaluationRemarks(data).subscribe((res:any) => {
+      console.log("SUCCESS ===",res);
+     
+      
+      this.presentSentAlert();
+      this.remarks = ""
+      this.evaluationForm = ""
+      
+    },(error:any) => {
+      console.log("ERROR ===", error);
+      this.remarks = ""
+      this.evaluationForm = ""
+    }
+    )
+
+    
+  }
+  async presentAlert() {
+
+    const alert = await this.alertController.create({
+     cssClass: 'my-custom-class',
+     header: 'Sending Evalution',
+     message: 'Send Evaluation',
+     buttons: [
+       {
+         text: 'No',
+         role: 'cancel',
+         cssClass: 'secondary',
+         handler: (blah) => {
+           console.log('Confirm Cancel: blah');
+         }
+       }, {
+         text: 'Yes',
+         handler: () => {
+           this.saveEvaluation();
+           this.router.navigate(['/evaluation']);
+           console.log('Confirm Okay');
+         }
+       }
+     ]
+   });
+
+   await alert.present();
+ }
+  async presentSentAlert() {
+
+    const alert = await this.alertController.create({
+     cssClass: 'my-custom-class',
+     header: 'Sent',
+     message: 'Evaluation Sent Succesfully!',
+     buttons: [
+        {
+         text: 'Ok',
+         handler: () => {
+           this.router.navigate(['/evaluation']);
+           console.log('Confirm Okay');
+         }
+       }
+     ]
+   });
+  
+   await alert.present();
   }
 }

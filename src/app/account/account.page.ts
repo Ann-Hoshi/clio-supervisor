@@ -18,6 +18,7 @@ export class AccountPage implements OnInit {
   firstName : any;
   middleName : any;
   lastName : any;
+  suffix : any;
   contactNo : any;
   companyName : any;
 
@@ -44,6 +45,7 @@ export class AccountPage implements OnInit {
         this.firstName = this.accountInfo.firstName;
         this.lastName = this.accountInfo.lastName;
         this.middleName = this.accountInfo.middleName;
+        this.suffix = this.accountInfo.suffix;
         
         this.companyName = this.accountInfo.companyName;
         this.contactNo = this.accountInfo.contactNo;
@@ -77,6 +79,7 @@ export class AccountPage implements OnInit {
         this.firstName = this.accountInfo.firstName;
         this.lastName = this.accountInfo.lastName;
         this.middleName = this.accountInfo.middleName;
+        this.suffix = this.accountInfo.suffix;
         
         this.companyName = this.accountInfo.companyName;
         this.contactNo = this.accountInfo.contactNo;

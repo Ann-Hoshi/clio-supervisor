@@ -22,10 +22,6 @@ export class AppComponent {
     this.router.navigate(['/account']);
   }
 
-  dashboard(){
-    this.router.navigate(['/home']);
-  }
-
   weeklyReport(){
     this.router.navigate(['/list-of-students']);
   }

@@ -14,14 +14,18 @@
     </ion-card-header>
     
     <ion-card-content>
-      <ion-item-divider>
-        <ion-label>Student Name:</ion-label>
-        <ion-input></ion-input>
-      </ion-item-divider>
+        <ion-item>
+          <ion-label>Student name:</ion-label>
+          <ion-select value={studentName}>
+            <ion-select-option> {{firstName}} {{middleName}} {{lastName}} {{suffix}} </ion-select-option> 
+
+          </ion-select>
+        </ion-item>
+      
       <br>
       <h2>Remarks</h2>
       <ion-item-divider>
-        <ion-textarea row="10" cols="20" placeholder="Leave a remarks about the intern's performance..."></ion-textarea>
+        <ion-textarea [(ngModel)]="remarks" row="10" cols="20" placeholder="Leave a remarks about the intern's performance..."></ion-textarea>
       </ion-item-divider>
     <div class="uploadEvaluationForm">
       <ion-button expand="block" (click)="uploadEvaluationForm()" color="Gray">
@@ -31,7 +35,7 @@
 
     <div class="button">
       <ion-button  fill="outline" (click)="cancelEvaluation()">Cancel</ion-button>
-      <ion-button  fill="outline" (click)="saveEvaluation()">Save</ion-button>
+      <ion-button  fill="outline" (click)="presentAlert()">Save</ion-button>
     </div>
     </ion-card-content>
   </ion-card>

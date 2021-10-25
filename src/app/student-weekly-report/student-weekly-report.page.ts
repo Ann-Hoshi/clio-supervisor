@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import { Storage } from '@ionic/storage-angular';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-student-weekly-report',
@@ -7,10 +9,96 @@ import {Router} from '@angular/router';
   styleUrls: ['./student-weekly-report.page.scss'],
 })
 export class StudentWeeklyReportPage implements OnInit {
+  datauser : any;
+  username : any;
+  weeklyReportInfo : any;
 
-  constructor(private router: Router) { }
+
+  firstName : any;
+  middleName : any;
+  lastName : any;
+  suffix : any;
+
+  date : any;
+  timeIn : any;
+  timeOut : any;
+  tasks : any;
+  learning : any;
+
+  constructor(private storage: Storage, private router: Router, public _apiService : ApiService) { }
 
   ngOnInit() {
+    this.storage.create();
+    this.storage.get('session_storage').then((res)=>{
+      this.datauser = res;
+
+      let data = {
+        username : this.datauser.username
+        
+      }
+
+      this._apiService.weeklyReport(data).subscribe((res:any) => {
+        console.log("SUCCESS ===",res);
+        
+        this.weeklyReportInfo = res.result;
+        
+        this.firstName = this.weeklyReportInfo.firstName;
+        this.lastName = this.weeklyReportInfo.lastName;
+        this.middleName = this.weeklyReportInfo.middleName;
+        this.suffix = this.weeklyReportInfo.suffix;
+        
+        this.date = this.weeklyReportInfo.date;
+        this.timeIn = this.weeklyReportInfo.timeIn;
+        this.timeOut = this.weeklyReportInfo.timeOut;
+        this.tasks = this.weeklyReportInfo.tasks;
+        this.learning = this.weeklyReportInfo.learning;
+        
+      
+  
+      },(error:any) => {
+        console.log("ERROR ===", error);
+      }
+      )
+      
+    
+    });
+  }
+
+  ionViewWillEnter(){
+    this.storage.create();
+    this.storage.get('session_storage').then((res)=>{
+      this.datauser = res;
+
+      let data = {
+        username : this.datauser.username
+        
+      }
+
+      this._apiService.weeklyReport(data).subscribe((res:any) => {
+        console.log("SUCCESS ===",res);
+        
+        this.weeklyReportInfo = res.result;
+        
+        this.firstName = this.weeklyReportInfo.firstName;
+        this.lastName = this.weeklyReportInfo.lastName;
+        this.middleName = this.weeklyReportInfo.middleName;
+        this.suffix = this.weeklyReportInfo.suffix;
+        
+        this.date = this.weeklyReportInfo.date;
+        this.timeIn = this.weeklyReportInfo.timeIn;
+        this.timeOut = this.weeklyReportInfo.timeOut;
+        this.tasks = this.weeklyReportInfo.tasks;
+        this.learning = this.weeklyReportInfo.learning;
+        
+      
+  
+      },(error:any) => {
+        console.log("ERROR ===", error);
+      }
+      )
+      
+    
+    });
   }
 
   viewDTR(){
@@ -18,7 +106,7 @@ export class StudentWeeklyReportPage implements OnInit {
   }
 
   notValid(){
-    
+    this.router.navigate(['/list-of-students-weekly-report']);
   }
 
   confirm(){
