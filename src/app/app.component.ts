@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Router} from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 
 @Component({
@@ -9,7 +10,7 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class AppComponent {
   
-  constructor(private router: Router,private storage: Storage) {
+  constructor(public alertController: AlertController,private router: Router,private storage: Storage) {
 
   }
   logOut(){
@@ -33,4 +34,31 @@ export class AppComponent {
   concerns(){
     this.router.navigate(['/concerns']);
   }
+  async presentAlert() {
+
+    const alert = await this.alertController.create({
+     cssClass: 'my-custom-class',
+     header: 'Logging out',
+     message: 'Are you sure you want to log-out?',
+     buttons: [
+       {
+         text: 'No',
+         role: 'cancel',
+         cssClass: 'secondary',
+         handler: (blah) => {
+           console.log('Confirm Cancel: blah');
+         }
+       }, {
+         text: 'Yes',
+         handler: () => {
+           this.logOut();
+           
+           console.log('Confirm Okay');
+         }
+       }
+     ]
+   });
+
+   await alert.present();
+ }
 }
