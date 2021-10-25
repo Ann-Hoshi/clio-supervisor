@@ -36,12 +36,7 @@ export class ListOfStudentsPage implements OnInit {
         
         this.weeklyReportStudentListInfo = res.result;
         
-        this.firstName = this.weeklyReportStudentListInfo.firstName;
-        this.lastName = this.weeklyReportStudentListInfo.lastName;
-        this.middleName = this.weeklyReportStudentListInfo.middleName;
-        this.suffix = this.weeklyReportStudentListInfo.suffix;
-        
-      
+
   
       },(error:any) => {
         console.log("ERROR ===", error);
@@ -67,10 +62,7 @@ export class ListOfStudentsPage implements OnInit {
         
         this.weeklyReportStudentListInfo = res.result;
         
-        this.firstName = this.weeklyReportStudentListInfo.firstName;
-        this.lastName = this.weeklyReportStudentListInfo.lastName;
-        this.middleName = this.weeklyReportStudentListInfo.middleName;
-        this.suffix = this.weeklyReportStudentListInfo.suffix;
+      
         
       },(error:any) => {
         console.log("ERROR ===", error);
@@ -81,7 +73,5 @@ export class ListOfStudentsPage implements OnInit {
     });
   }
 
-  student(){
-    this.router.navigate(['/list-of-students-weekly-report']);
-  }
+  
 }

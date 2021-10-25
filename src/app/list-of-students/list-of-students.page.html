@@ -14,9 +14,9 @@
       <ion-card-subtitle>List of Students</ion-card-subtitle>
     </ion-card-header>
     
-    <ion-card-content>
+    <ion-card-content *ngFor="let student of weeklyReportStudentListInfo">
       <ion-item>
-        <label (click)="student()"> {{firstName}} {{middleName}} {{lastName}}  {{suffix}}</label>
+        <label [routerLink]="['/list-of-students-weekly-report/',student.studentNumber]"> {{student.firstName}} {{student.middleName}} {{student.lastName}}  {{student.suffix}}</label>
       </ion-item>
     </ion-card-content>
   </ion-card>

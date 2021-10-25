@@ -24,7 +24,7 @@ const routes: Routes = [
     loadChildren: () => import('./account-edit-page/account-edit-page.module').then( m => m.AccountEditPagePageModule)
   },
   {
-    path: 'student-weekly-report',
+    path: 'student-weekly-report/:weeklyReportID',
     loadChildren: () => import('./student-weekly-report/student-weekly-report.module').then( m => m.StudentWeeklyReportPageModule)
   },
   {
@@ -40,7 +40,7 @@ const routes: Routes = [
     loadChildren: () => import('./concerns/concerns.module').then( m => m.ConcernsPageModule)
   },
   {
-    path: 'list-of-students-weekly-report',
+    path: 'list-of-students-weekly-report/:studentNumber',
     loadChildren: () => import('./list-of-students-weekly-report/list-of-students-weekly-report.module').then( m => m.ListOfStudentsWeeklyReportPageModule)
   },
 ];

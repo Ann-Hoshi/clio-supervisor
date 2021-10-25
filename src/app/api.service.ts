@@ -36,4 +36,7 @@ export class ApiService {
   addConcern(data){
     return this.http.post('http://localhost/CLIO/backend/addConcern.php',data)
   }
+  getWeeklyReport(data){
+    return this.http.post('http://localhost/CLIO/backend/getWeeklyReport.php',data)
+  }
 }
