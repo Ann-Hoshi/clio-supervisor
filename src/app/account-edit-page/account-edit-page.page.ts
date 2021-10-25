@@ -73,11 +73,11 @@ export class AccountEditPagePage implements OnInit {
       password : this.password
     
     }
-    
+    console.log(data)
     this._apiService.editAccount(data).subscribe((res:any) => {
       console.log("SUCCESS ===",res);
       
-
+      this.router.navigate(['/account']);
     },(error:any) => {
       console.log("ERROR ===", error);
     }
@@ -110,7 +110,6 @@ export class AccountEditPagePage implements OnInit {
           text: 'Yes',
           handler: () => {
             this.accountEditPageSave();
-            this.router.navigate(['/account']);
             console.log('Confirm Okay');
           }
         }

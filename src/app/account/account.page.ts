@@ -68,7 +68,6 @@ export class AccountPage implements OnInit {
 
       let data = {
         username : this.datauser.username
-        
       }
 
       this._apiService.account(data).subscribe((res:any) => {
@@ -80,7 +79,6 @@ export class AccountPage implements OnInit {
         this.lastName = this.accountInfo.lastName;
         this.middleName = this.accountInfo.middleName;
         this.suffix = this.accountInfo.suffix;
-        
         this.companyName = this.accountInfo.companyName;
         this.contactNo = this.accountInfo.contactNo;
         
