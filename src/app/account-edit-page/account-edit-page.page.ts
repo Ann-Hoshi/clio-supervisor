@@ -4,6 +4,12 @@ import { Storage } from '@ionic/storage-angular';
 import { ApiService } from '../api.service';
 import { AlertController } from '@ionic/angular';
 
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { HttpClient } from '@angular/common/http';
+import { LoadingController, Platform, ToastController } from '@ionic/angular';
+import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
+import { finalize } from 'rxjs/operators';
+
 @Component({
   selector: 'app-account-edit-page',
   templateUrl: './account-edit-page.page.html',
@@ -24,7 +30,18 @@ export class AccountEditPagePage implements OnInit {
   companyName : any;
   password : any;
 
-  constructor(public alertController: AlertController, private storage: Storage, private router: Router, public _apiService : ApiService) { }
+  blob : any;
+  fileName : any;
+  src : any;
+
+  constructor(public alertController: AlertController,
+    private storage: Storage, 
+    private router: Router, 
+    public _apiService : ApiService, 
+    private plt: Platform,
+    private http: HttpClient,
+    private loadingCtrl: LoadingController,
+    private toastCtrl: ToastController) { }
 
   ngOnInit() {
 
@@ -48,7 +65,7 @@ export class AccountEditPagePage implements OnInit {
         
         this.companyName = this.accountInfo.companyName;
         
-  
+        this.src = `./assets/${this.accountInfo.supervisorImage}`;
       
   
       },(error:any) => {
@@ -70,14 +87,16 @@ export class AccountEditPagePage implements OnInit {
       middleName :this.middleName,
       lastName : this.lastName,
       companyName : this.companyName,
-      password : this.password
+      password : this.password,
+      supervisorImage : this.fileName
     
     }
-    console.log(data)
+    
     this._apiService.editAccount(data).subscribe((res:any) => {
       console.log("SUCCESS ===",res);
       
-      this.router.navigate(['/account']);
+      this.startUpload();
+      
     },(error:any) => {
       console.log("ERROR ===", error);
     }
@@ -118,4 +137,68 @@ export class AccountEditPagePage implements OnInit {
 
     await alert.present();
   }
+
+  async selectPhoto(){
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Photos 
+  });
+
+  if (image) {
+      this.saveImage(image)
+  }
+  }
+
+  async saveImage(photo: Photo) {
+
+    const response = await fetch(photo.webPath);
+    this.blob  = await response.blob();
+    this.fileName  = new Date().getTime() + '.jpeg';
+   
+}
+  async startUpload() {
+
+   const formData = new FormData();
+   formData.append('file', this.blob, this.fileName);
+   this.uploadData(formData);
+
+}
+
+async uploadData(formData: FormData) {
+  const loading = await this.loadingCtrl.create({
+      message: 'Uploading image...',
+  });
+  await loading.present();
+
+  // Use your own API!
+  const url = 'http://localhost/CLIO/backend/uploadDP.php';
+
+  this.http.post(url, formData)
+      .pipe(
+          finalize(() => {
+              loading.dismiss();
+              this.presentToast('Account updated successfully.')
+              this.router.navigate(['/account']);
+          })
+      )
+      .subscribe(res => {
+          if (res['success']) {
+            
+          } else {
+            this.presentToast('File upload failed.')
+          }
+      });
+}
+
+
+  async presentToast(text) {
+      const toast = await this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+   });
+   toast.present();
+}
+
 }

@@ -12,8 +12,12 @@
     
     <ion-card-content>
       <div class="profilePicture">
-        <img src="./assets/profilePicture.png"/>
-      </div>
+        <img src="{{src}}"/>
+      </div>  
+
+      <br>
+      <ion-button  fill="outline" expand="block" size="small" (click)="selectPhoto()">Select Photo</ion-button>
+      <br>
 
       <ion-item>
         <ion-label>First name:</ion-label>

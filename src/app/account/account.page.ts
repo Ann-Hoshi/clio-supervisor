@@ -21,7 +21,7 @@ export class AccountPage implements OnInit {
   suffix : any;
   contactNo : any;
   companyName : any;
-
+  src : any;
  
 
   constructor(private storage: Storage, private router: Router, public _apiService : ApiService) { }
@@ -49,7 +49,7 @@ export class AccountPage implements OnInit {
         
         this.companyName = this.accountInfo.companyName;
         this.contactNo = this.accountInfo.contactNo;
-        
+        this.src = `./assets/${this.accountInfo.supervisorImage}`;
       
   
       },(error:any) => {
@@ -81,6 +81,8 @@ export class AccountPage implements OnInit {
         this.suffix = this.accountInfo.suffix;
         this.companyName = this.accountInfo.companyName;
         this.contactNo = this.accountInfo.contactNo;
+
+        this.src = `./assets/${this.accountInfo.supervisorImage}`;
         
       
   
