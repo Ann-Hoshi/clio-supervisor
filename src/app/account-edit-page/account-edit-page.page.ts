@@ -65,7 +65,7 @@ export class AccountEditPagePage implements OnInit {
         
         this.companyName = this.accountInfo.companyName;
         
-        this.src = `clio-rms.com/uploads/${this.accountInfo.supervisorImage}`;
+        this.src = `http://clio-rms.com/uploads/${this.accountInfo.supervisorImage}`;
       
   
       },(error:any) => {
