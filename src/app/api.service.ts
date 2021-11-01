@@ -9,34 +9,34 @@ export class ApiService {
   constructor( public http: HttpClient) { }
 
   logIn(data){
-    return this.http.post('http://localhost/CLIO/backend/login.php',data)
+    return this.http.post('http://clio-rms.com/backend/login.php',data)
   }
 
   account(data){
-    return this.http.post('http://localhost/CLIO/backend/account.php',data)
+    return this.http.post('http://clio-rms.com/backend/account.php',data)
   }
   editAccount(data){
-    return this.http.post('http://localhost/CLIO/backend/editAccount.php',data)
+    return this.http.post('http://clio-rms.com/backend/editAccount.php',data)
   }
   weeklyReportStudentList(data){
-    return this.http.post('http://localhost/CLIO/backend/weeklyReportStudentList.php',data)
+    return this.http.post('http://clio-rms.com/backend/weeklyReportStudentList.php',data)
   }
   weeklyReport(data){
-    return this.http.post('http://localhost/CLIO/backend/weeklyReport.php',data)
+    return this.http.post('http://clio-rms.com/backend/weeklyReport.php',data)
   }
   evaluation(data){
-    return this.http.post('http://localhost/CLIO/backend/evaluation.php',data)
+    return this.http.post('http://clio-rms.com/backend/evaluation.php',data)
   }
   evaluationRemarks(data){
-    return this.http.post('http://localhost/CLIO/backend/evaluationRemarks.php',data)
+    return this.http.post('http://clio-rms.com/backend/evaluationRemarks.php',data)
   }
   concerns(data){
-    return this.http.post('http://localhost/CLIO/backend/concerns.php',data)
+    return this.http.post('http://clio-rms.com/backend/concerns.php',data)
   }
   addConcern(data){
-    return this.http.post('http://localhost/CLIO/backend/addConcern.php',data)
+    return this.http.post('http://clio-rms.com/backend/addConcern.php',data)
   }
   getWeeklyReport(data){
-    return this.http.post('http://localhost/CLIO/backend/getWeeklyReport.php',data)
+    return this.http.post('http://clio-rms.com/backend/getWeeklyReport.php',data)
   }
 }

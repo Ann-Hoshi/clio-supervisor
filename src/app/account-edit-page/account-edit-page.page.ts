@@ -65,7 +65,7 @@ export class AccountEditPagePage implements OnInit {
         
         this.companyName = this.accountInfo.companyName;
         
-        this.src = `./assets/${this.accountInfo.supervisorImage}`;
+        this.src = `clio-rms.com/uploads/${this.accountInfo.supervisorImage}`;
       
   
       },(error:any) => {
@@ -173,7 +173,7 @@ async uploadData(formData: FormData) {
   await loading.present();
 
   // Use your own API!
-  const url = 'http://localhost/CLIO/backend/uploadDP.php';
+  const url = 'http://clio-rms.com/backend/uploadDP.php';
 
   this.http.post(url, formData)
       .pipe(

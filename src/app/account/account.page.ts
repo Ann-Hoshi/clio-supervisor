@@ -49,7 +49,7 @@ export class AccountPage implements OnInit {
         
         this.companyName = this.accountInfo.companyName;
         this.contactNo = this.accountInfo.contactNo;
-        this.src = `./assets/${this.accountInfo.supervisorImage}`;
+        this.src = `clio-rms.com/uploads/${this.accountInfo.supervisorImage}`;
       
   
       },(error:any) => {
@@ -82,7 +82,7 @@ export class AccountPage implements OnInit {
         this.companyName = this.accountInfo.companyName;
         this.contactNo = this.accountInfo.contactNo;
 
-        this.src = `./assets/${this.accountInfo.supervisorImage}`;
+        this.src = `clio-rms.com/uploads/${this.accountInfo.supervisorImage}`;
         
       
   
