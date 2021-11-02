@@ -22,7 +22,8 @@ export class EvaluationPage implements OnInit {
 
   remarks : any;
   evaluationForm : any;
-
+  studentNumber : any;
+  supervisorID : any;
 
   constructor(public alertController: AlertController,public toastCtrl: ToastController,private storage: Storage, private router: Router, public _apiService : ApiService) { }
 
@@ -33,18 +34,17 @@ export class EvaluationPage implements OnInit {
 
       let data = {
         username : this.datauser.username
-        
       }
 
       this._apiService.evaluation(data).subscribe((res:any) => {
         console.log("SUCCESS ===",res);
         
         this.evaluationInfo = res.result;
+
+        this.supervisorID = this.evaluationInfo.supervisorID;
         
-        this.firstName = this.evaluationInfo.firstName;
-        this.lastName = this.evaluationInfo.lastName;
-        this.middleName = this.evaluationInfo.middleName;
-        this.suffix = this.evaluationInfo.suffix; 
+        
+         
   
       },(error:any) => {
         console.log("ERROR ===", error);
@@ -70,10 +70,8 @@ export class EvaluationPage implements OnInit {
         
         this.evaluationInfo = res.result;
         
-        this.firstName = this.evaluationInfo.firstName;
-        this.lastName = this.evaluationInfo.lastName;
-        this.middleName = this.evaluationInfo.middleName;
-        this.suffix = this.evaluationInfo.suffix;
+        this.supervisorID = this.evaluationInfo.supervisorID;
+        
 
   
       },(error:any) => {
@@ -99,15 +97,16 @@ export class EvaluationPage implements OnInit {
     let data = {
       username : this.datauser.username,
       remarks : this.remarks,
-      firstName :this.firstName,
-      middleName :this.middleName,
-      lastName :this.lastName,
-      suffix :this.suffix,
+      studentNumber : this.studentNumber,
       evaluationForm : this.evaluationForm
     }
+  
+    
+
 
     
     this._apiService.evaluationRemarks(data).subscribe((res:any) => {
+
       console.log("SUCCESS ===",res);
      
       
@@ -116,16 +115,17 @@ export class EvaluationPage implements OnInit {
       this.evaluationForm = ""
       
     },(error:any) => {
+
       console.log("ERROR ===", error);
-      this.remarks = ""
-      this.evaluationForm = ""
+     
     }
     )
 
     
   }
   async presentAlert() {
-
+   
+    
     const alert = await this.alertController.create({
      cssClass: 'my-custom-class',
      header: 'Sending Evalution',
@@ -142,8 +142,7 @@ export class EvaluationPage implements OnInit {
          text: 'Yes',
          handler: () => {
            this.saveEvaluation();
-           this.router.navigate(['/evaluation']);
-           console.log('Confirm Okay');
+          
          }
        }
      ]

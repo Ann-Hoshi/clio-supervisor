@@ -16,8 +16,10 @@
     <ion-card-content>
         <ion-item>
           <ion-label>Student name:</ion-label>
-          <ion-select value={studentName}>
-            <ion-select-option> {{firstName}} {{middleName}} {{lastName}} {{suffix}} </ion-select-option> 
+
+          <ion-select [(ngModel)]="studentNumber">
+
+            <ion-select-option *ngFor="let student of evaluationInfo" value="{{student.studentNumber}}"  > {{student.firstName}}  </ion-select-option> 
 
           </ion-select>
         </ion-item>
@@ -27,12 +29,8 @@
       <ion-item-divider>
         <ion-textarea [(ngModel)]="remarks" row="10" cols="20" placeholder="Leave a remarks about the intern's performance..."></ion-textarea>
       </ion-item-divider>
-    <div class="uploadEvaluationForm">
-      <ion-button expand="block" (click)="uploadEvaluationForm()" color="Gray">
-        <ion-icon name="document-attach"></ion-icon>
-        Upload Evaluation Form</ion-button>
-    </div>
-
+      
+    
     <div class="button">
       <ion-button  fill="outline" (click)="cancelEvaluation()">Cancel</ion-button>
       <ion-button  fill="outline" (click)="presentAlert()">Save</ion-button>
