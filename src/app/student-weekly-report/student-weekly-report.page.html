@@ -14,7 +14,9 @@
     </ion-card-header>
 
     <ion-card-content>
-      <ion-label>Student name:</ion-label> <ion-label>{{firstName}} {{middleName}} {{lastName}} {{suffix}}</ion-label>
+      <ion-label>Student name: {{firstName}} {{middleName}} {{lastName}} {{suffix}} </ion-label>
+      
+    
 
       <div class="profilePicture">
         <img src="{{src}}"/>
@@ -50,7 +52,7 @@
       </ion-item-divider>
       <div class="button">
       <ion-button  fill="outline" (click)="notValid()">Not Valid</ion-button>
-      <ion-button  fill="outline" (click)="confirm()">Confirm</ion-button>
+      <ion-button  fill="outline" (click)="presentAlert()">Confirm</ion-button>
     </div>
     </ion-card-content>
   </ion-card>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import { ApiService } from '../api.service';
 
@@ -25,8 +26,10 @@ export class StudentWeeklyReportPage implements OnInit {
   tasks : any;
   learning : any;
   src : any;
+  isApproved : any;
+  studentNumber : any;
 
-  constructor(private storage: Storage, private router: Router, public _apiService : ApiService,private route: ActivatedRoute) { 
+  constructor(public alertController: AlertController, private storage: Storage, private router: Router, public _apiService : ApiService,private route: ActivatedRoute, private toastCtrl: ToastController) { 
     this.route.params.subscribe((param:any) => {
       this.weeklyReportID = param.weeklyReportID;
     })
@@ -55,7 +58,8 @@ export class StudentWeeklyReportPage implements OnInit {
         this.timeOut = this.weeklyReportInfo.timeOut;
         this.tasks = this.weeklyReportInfo.tasks;
         this.learning = this.weeklyReportInfo.learning;
-        
+        this.isApproved = this.weeklyReportInfo.isApproved;
+        this.studentNumber = this.weeklyReportInfo.studentNumber;
 
         this.src = `http://www.clio-rms.com/backendstudent/uploads/${this.weeklyReportInfo.dtrImage}`;
       
@@ -93,6 +97,8 @@ export class StudentWeeklyReportPage implements OnInit {
         this.tasks = this.weeklyReportInfo.tasks;
         this.learning = this.weeklyReportInfo.learning;
         
+        
+        this.src = `http://www.clio-rms.com/backendstudent/uploads/${this.weeklyReportInfo.dtrImage}`;
       
   
       },(error:any) => {
@@ -104,16 +110,68 @@ export class StudentWeeklyReportPage implements OnInit {
     
   }
 
-  viewDTR(){
-    
-  }
+
 
   notValid(){
-    this.router.navigate(['/list-of-students-weekly-report']);
+    this.router.navigate([`list-of-students-weekly-report/${this.studentNumber}`]);
   }
 
   confirm(){
+
+    let data = {
+      weeklyReportID : this.weeklyReportID,
+      isApproved : this.isApproved
+    }
+
+    this._apiService.confirmWeeklyReport(data).subscribe((res:any) => {
+      console.log("SUCCESS ===",res);
+      
+    
+      this.presentToast('Student time record approved!');
+
+      this.router.navigate([`list-of-students-weekly-report/${this.studentNumber}`]);
+
+
+    },(error:any) => {
+      console.log("ERROR ===", error);
+    }
+    )
     
   }
+
+  async presentToast(text) {
+    const toast = await this.toastCtrl.create({
+    message: text,
+    duration: 3000,
+ });
+ toast.present();
+}
+
+async presentAlert() {
+
+  const alert = await this.alertController.create({
+   cssClass: 'my-custom-class',
+   header: 'DTR Approval',
+   message: 'Approve DTR?',
+   buttons: [
+     {
+       text: 'No',
+       role: 'cancel',
+       cssClass: 'secondary',
+       handler: (blah) => {
+         console.log('Confirm Cancel: blah');
+       }
+     }, {
+       text: 'Yes',
+       handler: () => {
+         this.confirm();
+         console.log('Confirm Okay');
+       }
+     }
+   ]
+ });
+
+ await alert.present();
+}
 
 }

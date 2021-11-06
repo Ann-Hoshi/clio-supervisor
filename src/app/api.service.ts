@@ -39,4 +39,7 @@ export class ApiService {
   getWeeklyReport(data){
     return this.http.post('http://clio-rms.com/backend/getWeeklyReport.php',data)
   }
+  confirmWeeklyReport(data){
+    return this.http.post('http://clio-rms.com/backend/confirmWeeklyReport.php',data)
+  }
 }
