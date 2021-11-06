@@ -134,6 +134,7 @@ export class StudentWeeklyReportPage implements OnInit {
 
     },(error:any) => {
       console.log("ERROR ===", error);
+      this.presentToast('Student time record already approved!');
     }
     )
     
