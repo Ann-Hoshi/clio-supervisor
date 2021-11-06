@@ -16,6 +16,10 @@
     <ion-card-content>
       <ion-label>Student name:</ion-label> <ion-label>{{firstName}} {{middleName}} {{lastName}} {{suffix}}</ion-label>
 
+      <div class="profilePicture">
+        <img src="{{src}}"/>
+      </div>
+
       <ion-item>
         <ion-label>Date:</ion-label>
         <ion-label> {{date}} </ion-label>
@@ -31,12 +35,6 @@
         <ion-label> {{timeOut}} </ion-label>
       </ion-item>
 
-      <div class="viewDTR">
-        <ion-button (click)="viewDTR()" color="Gray">
-          <ion-icon name="document-attach"></ion-icon>
-          view DTR</ion-button>
-      </div>
-
       <br>
 
       <h1>Tasks</h1>
@@ -50,10 +48,10 @@
       <ion-item-divider>
         <ion-label> {{learning}} </ion-label>
       </ion-item-divider>
-      <!-- <div class="button">
+      <div class="button">
       <ion-button  fill="outline" (click)="notValid()">Not Valid</ion-button>
       <ion-button  fill="outline" (click)="confirm()">Confirm</ion-button>
-    </div> -->
+    </div>
     </ion-card-content>
   </ion-card>
 </ion-content>

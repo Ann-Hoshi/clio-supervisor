@@ -24,6 +24,7 @@ export class StudentWeeklyReportPage implements OnInit {
   timeOut : any;
   tasks : any;
   learning : any;
+  src : any;
 
   constructor(private storage: Storage, private router: Router, public _apiService : ApiService,private route: ActivatedRoute) { 
     this.route.params.subscribe((param:any) => {
@@ -55,6 +56,8 @@ export class StudentWeeklyReportPage implements OnInit {
         this.tasks = this.weeklyReportInfo.tasks;
         this.learning = this.weeklyReportInfo.learning;
         
+
+        this.src = `http://www.clio-rms.com/backendstudent/uploads/${this.weeklyReportInfo.dtrImage}`;
       
   
       },(error:any) => {
