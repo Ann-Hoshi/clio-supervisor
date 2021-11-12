@@ -29,8 +29,9 @@
       <ion-item-divider>
         <ion-textarea [(ngModel)]="remarks" row="10" cols="20" placeholder="Leave a remarks about the intern's performance..."></ion-textarea>
       </ion-item-divider>
+      <ion-button  fill="outline" (click)="uploadEvaluationForm()">Upload PDF file</ion-button>
       
-    
+
     <div class="button">
       <ion-button  fill="outline" (click)="cancelEvaluation()">Cancel</ion-button>
       <ion-button  fill="outline" (click)="presentAlert()">Save</ion-button>

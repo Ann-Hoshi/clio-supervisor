@@ -1,8 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { ApiService } from '../api.service';
+import { HttpClient } from '@angular/common/http';
+import { finalize } from 'rxjs/operators';
+
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { File } from '@ionic-native/file/ngx';
 
 @Component({
   selector: 'app-evaluation',
@@ -24,8 +31,17 @@ export class EvaluationPage implements OnInit {
   evaluationForm : any;
   studentNumber : any;
   supervisorID : any;
+  
+ 
+  fileName : any;
+  fileTransfer : FileTransferObject;
+  option : any;
+  nativePath : any;
+ 
+  constructor(private fileChooser: FileChooser,private filePath : FilePath,private file: File,private transfer: FileTransfer, private loadingCtrl: LoadingController,private http: HttpClient,public alertController: AlertController,public toastCtrl: ToastController,private storage: Storage, private router: Router, public _apiService : ApiService) {
 
-  constructor(public alertController: AlertController,public toastCtrl: ToastController,private storage: Storage, private router: Router, public _apiService : ApiService) { }
+
+   }
 
   ngOnInit() {
     this.storage.create();
@@ -84,36 +100,100 @@ export class EvaluationPage implements OnInit {
   }
 
   uploadEvaluationForm(){
-    
+    this.fileChooser.open().then((uri)=>{ 
+      this.filePath.resolveNativePath(uri).then(
+        (nativePaths)=>{
+          this.nativePath = nativePaths;
+        },(err)=>{
+          alert(JSON.stringify(err));
+        }
+      )
+  },(err)=>{
+    alert(JSON.stringify(err));
+  }) 
   }
 
   cancelEvaluation(){
-    this.remarks = ""
-    this.evaluationForm = ""
+    this.remarks = "";
+    this.nativePath = "";
+    this.studentNumber = "";
+
+  }
+
+  
+
+
+  async uploadData(formData: FormData) {
     
+    
+    const loading = await this.loadingCtrl.create({
+        message: 'Uploading image...',
+    });
+    await loading.present();
+  
+    // Use your own API!
+    const url = 'http://clio-rms.com/backend/uploadDP.php';
+  
+    this.http.post(url, formData)
+        .pipe(
+            finalize(() => {
+                loading.dismiss();
+                this.presentToast('Account updated successfully.')
+                
+            })
+        )
+        .subscribe(res => {
+            if (res['success']) {
+              
+            } else {
+              this.presentToast('File upload failed.')
+            }
+        });
+  }
+  
+  
+    async presentToast(text) {
+        const toast = await this.toastCtrl.create({
+        message: text,
+        duration: 3000,
+     });
+     toast.present();
   }
 
   saveEvaluation(){
+    this.fileName = new Date().getTime() + '.pdf';
+
     let data = {
       username : this.datauser.username,
       remarks : this.remarks,
       studentNumber : this.studentNumber,
-      evaluationForm : this.evaluationForm
+      evaluationForm : this.fileName,
+
     }
-  
-    
-
-
-    
     this._apiService.evaluationRemarks(data).subscribe((res:any) => {
+
+      
+      let options: FileUploadOptions = {
+        fileKey: 'file',
+        fileName: this.fileName,
+        chunkedMode: false,
+        headers: {}, 
+      }
+      this.fileTransfer = this.transfer.create();
+      this.fileTransfer.upload(this.nativePath, 'http://clio-rms.com/backend/uploadDP.php',options).then((data)=>{
+          
+        },(err)=>{
+          alert(JSON.stringify(err));
+        });
+
 
       console.log("SUCCESS ===",res);
      
       
       this.presentSentAlert();
-      this.remarks = ""
-      this.evaluationForm = ""
-      
+      this.remarks = "";
+      this.nativePath = "";
+      this.studentNumber = "";
     },(error:any) => {
 
       console.log("ERROR ===", error);
