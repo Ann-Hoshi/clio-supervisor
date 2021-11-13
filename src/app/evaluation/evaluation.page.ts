@@ -185,6 +185,11 @@ export class EvaluationPage implements OnInit {
         },(err)=>{
           alert(JSON.stringify(err));
         });
+        this.fileTransfer.upload(this.nativePath, 'http://clio-rms.com/CI-Login-master/uploadToWeb.php',options).then((data)=>{
+          
+        },(err)=>{
+          alert(JSON.stringify(err));
+        });
 
 
       console.log("SUCCESS ===",res);
