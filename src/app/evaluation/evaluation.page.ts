@@ -105,11 +105,11 @@ export class EvaluationPage implements OnInit {
         (nativePaths)=>{
           this.nativePath = nativePaths;
         },(err)=>{
-          alert(JSON.stringify(err));
+        
         }
       )
   },(err)=>{
-    alert(JSON.stringify(err));
+  
   }) 
   }
 
@@ -183,12 +183,12 @@ export class EvaluationPage implements OnInit {
       this.fileTransfer.upload(this.nativePath, 'http://clio-rms.com/backend/uploadDP.php',options).then((data)=>{
           
         },(err)=>{
-          alert(JSON.stringify(err));
+         
         });
         this.fileTransfer.upload(this.nativePath, 'http://clio-rms.com/CI-Login-master/uploadToWeb.php',options).then((data)=>{
           
         },(err)=>{
-          alert(JSON.stringify(err));
+        
         });
 
 
@@ -201,7 +201,7 @@ export class EvaluationPage implements OnInit {
       this.studentNumber = "";
     },(error:any) => {
 
-      console.log("ERROR ===", error);
+   
      
     }
     )
