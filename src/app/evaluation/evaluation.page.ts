@@ -199,6 +199,7 @@ export class EvaluationPage implements OnInit {
       this.remarks = "";
       this.nativePath = "";
       this.studentNumber = "";
+      
     },(error:any) => {
 
    
