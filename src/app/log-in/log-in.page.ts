@@ -42,7 +42,7 @@ export class LogInPage implements OnInit {
         });
 
         toast.present();
-  
+        this.password = "";
       });
     
       this.router.navigate(['/list-of-students']);
