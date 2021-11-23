@@ -24,10 +24,15 @@ export class ConcernsPage implements OnInit {
   subject;
   concern;
   dateTime;
-  
+  evaluationInfo;
+  supervisorID;
+  toUser;
+  isEnabled;
+  studentNumber;
 
   constructor(public alertController: AlertController,private storage: Storage, private router: Router, public _apiService : ApiService) {
     this.dateTime = new Date().toISOString();
+    
    }
 
   ngOnInit() {
@@ -54,6 +59,21 @@ export class ConcernsPage implements OnInit {
         this.contactNo = this.concernsInfo.contactNo;
         
       
+  
+      },(error:any) => {
+        console.log("ERROR ===", error);
+      }
+      )
+
+      this._apiService.evaluation(data).subscribe((res:any) => {
+        console.log("SUCCESS ===",res);
+        
+        this.evaluationInfo = res.result;
+
+        this.supervisorID = this.evaluationInfo.supervisorID;
+        
+        
+         
   
       },(error:any) => {
         console.log("ERROR ===", error);
@@ -99,34 +119,86 @@ export class ConcernsPage implements OnInit {
   }
 
   sendConcern(){
- 
-      let data = {
-        username : this.datauser.username,
-        subject : this.subject,
-        concern : this.concern,
-        dateTime : this.dateTime
+
+      if(this.isEnabled){
+        let data = {
+          username : this.datauser.username,
+          subject : this.subject,
+          concern : this.concern,
+          dateTime : this.dateTime,
+          studentNumber : this.studentNumber,
+          toUser : this.toUser
+        }
+
+        if(data.studentNumber==null){
+          this.emptyToUser();
+        }else{
+          this._apiService.addConcern(data).subscribe((res:any) => {
+            console.log("SUCCESS ===",res);
+            this.subject = "";
+            this.concern = "";
+            this.toUser = "";
+            this.studentNumber = "";
+  
+            this.presentSentAlert();
+    
+            
+          },(error:any) => {
+            console.log("ERROR ===", error);
+          }
+          )
+        }
+        
+       
+      }else{
+        let data = {
+          username : this.datauser.username,
+          subject : this.subject,
+          concern : this.concern,
+          dateTime : this.dateTime,
+          toUser : this.toUser
+          
+
+        }
+
+        this._apiService.addConcern(data).subscribe((res:any) => {
+          console.log("SUCCESS ===",res);
+          this.subject = "";
+          this.concern = "";
+          this.toUser = "";
+          this.studentNumber = "";
+          
+          this.presentSentAlert();
+  
+          
+        },(error:any) => {
+          console.log("ERROR ===", error);
+        }
+        )
       }
+     
 
       
   
-      this._apiService.addConcern(data).subscribe((res:any) => {
-        console.log("SUCCESS ===",res);
-        this.subject = ""
-        this.concern = ""
-        
-        this.presentSentAlert();
-
-        
-      },(error:any) => {
-        console.log("ERROR ===", error);
-      }
-      )
+      
     
   }
 
   cancelConcern(){
     this.subject = ""
     this.concern = ""
+
+   
+    
+  }
+
+  selectWhoseAdviser(){
+    if(this.toUser=="adviser"){
+      this.isEnabled=true;
+    }else{
+
+      this.isEnabled=false;
+    }
   }
 
   async presentAlert() {
@@ -169,6 +241,25 @@ export class ConcernsPage implements OnInit {
        handler: () => {
          this.router.navigate(['/concerns']);
          console.log('Confirm Okay');
+       }
+     }
+   ]
+ });
+
+ await alert.present();
+}
+
+async emptyToUser() {
+
+  const alert = await this.alertController.create({
+   cssClass: 'my-custom-class',
+   header: 'Error',
+   message: 'You did not select whose adviser to send concern!',
+   buttons: [
+      {
+       text: 'Ok',
+       handler: () => {
+      
        }
      }
    ]

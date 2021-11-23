@@ -17,7 +17,7 @@
         <ion-item>
           <ion-label>Student name:</ion-label>
 
-          <ion-select [(ngModel)]="studentNumber">
+          <ion-select [(ngModel)]="studentNumber" placeholder="Select a student">
 
             <ion-select-option *ngFor="let student of evaluationInfo" value="{{student.studentNumber}}"  > {{student.firstName}}  </ion-select-option> 
 
