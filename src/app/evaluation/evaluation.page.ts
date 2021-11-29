@@ -117,7 +117,8 @@ export class EvaluationPage implements OnInit {
     this.remarks = "";
     this.nativePath = "";
     this.studentNumber = "";
-
+    
+    
   }
 
   
@@ -168,7 +169,7 @@ export class EvaluationPage implements OnInit {
       remarks : this.remarks,
       studentNumber : this.studentNumber,
       evaluationForm : this.fileName,
-
+      evaluationDate : new Date().toLocaleDateString()
     }
     this._apiService.evaluationRemarks(data).subscribe((res:any) => {
 
