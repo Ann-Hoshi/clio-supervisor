@@ -42,4 +42,7 @@ export class ApiService {
   confirmWeeklyReport(data){
     return this.http.post('http://clio-rms.com/backend/confirmWeeklyReport.php',data)
   }
+  gradingSystem(data){
+    return this.http.post('http://clio-rms.com/backendstudent/gradingSystem.php',data)
+  }
 }

@@ -42,7 +42,11 @@ const routes: Routes = [
   {
     path: 'list-of-students-weekly-report/:studentNumber',
     loadChildren: () => import('./list-of-students-weekly-report/list-of-students-weekly-report.module').then( m => m.ListOfStudentsWeeklyReportPageModule)
+  },  {
+    path: 'grading',
+    loadChildren: () => import('./grading/grading.module').then( m => m.GradingPageModule)
   },
+
 ];
 
 @NgModule({

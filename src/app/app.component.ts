@@ -23,6 +23,10 @@ export class AppComponent {
     this.router.navigate(['/account']);
   }
 
+  gradingSystem(){
+    this.router.navigate(['/grading']);
+  }
+
   weeklyReport(){
     this.router.navigate(['/list-of-students']);
   }
