@@ -26,7 +26,7 @@ export class AccountEditPagePage implements OnInit {
   firstName : any;
   middleName : any;
   lastName : any;
-  contactNo : any;
+  contactNumber : any;
   companyName : any;
   password : any;
 
@@ -62,9 +62,9 @@ export class AccountEditPagePage implements OnInit {
         this.firstName = this.accountInfo.firstName;
         this.lastName = this.accountInfo.lastName;
         this.middleName = this.accountInfo.middleName;
-        
+        this.contactNumber = this.accountInfo.contactNo;
         this.companyName = this.accountInfo.companyName;
-        
+        this.password = "";
         this.src = `http://www.clio-rms.com/backend/uploads/${this.accountInfo.supervisorImage}`;
       
   
@@ -77,6 +77,10 @@ export class AccountEditPagePage implements OnInit {
     
 
   }
+
+  ionViewWillEnter(){
+    this.ngOnInit()
+  }
   
 
   accountEditPageSave(){
@@ -87,6 +91,7 @@ export class AccountEditPagePage implements OnInit {
       middleName :this.middleName,
       lastName : this.lastName,
       companyName : this.companyName,
+      contactNumber : this.contactNumber,
       password : this.password,
       supervisorImage : this.fileName
     
