@@ -84,28 +84,38 @@ export class AccountEditPagePage implements OnInit {
   
 
   accountEditPageSave(){
-    
-    let data = {
-      username : this.datauser.username,
-      firstName : this.firstName,
-      middleName :this.middleName,
-      lastName : this.lastName,
-      companyName : this.companyName,
-      contactNumber : this.contactNumber,
-      password : this.password,
-      supervisorImage : this.fileName
-    
+
+    if(this.blob==null){
+      this.presentToast("No Image Attached!")
+    }else if(this.contactNumber==null){
+      this.presentToast("Contact Number is Empty!")
+    }else if(this.password==null){
+      this.presentToast("Password is Empty!")
+    }else{
+      let data = {
+        username : this.datauser.username,
+        firstName : this.firstName,
+        middleName :this.middleName,
+        lastName : this.lastName,
+        companyName : this.companyName,
+        contactNumber : this.contactNumber,
+        password : this.password,
+        supervisorImage : this.fileName
+      
+      }
+      
+      this._apiService.editAccount(data).subscribe((res:any) => {
+        console.log("SUCCESS ===",res);
+        
+        this.startUpload();
+        
+      },(error:any) => {
+        console.log("ERROR ===", error);
+      }
+      )
+      
     }
     
-    this._apiService.editAccount(data).subscribe((res:any) => {
-      console.log("SUCCESS ===",res);
-      
-      this.startUpload();
-      
-    },(error:any) => {
-      console.log("ERROR ===", error);
-    }
-    )
     
    
   }
