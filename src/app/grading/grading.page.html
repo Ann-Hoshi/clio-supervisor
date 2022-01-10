@@ -10,7 +10,11 @@
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Grading System</ion-card-title>
+      <ion-card-title>Rating Sheet</ion-card-title>
+      <ion-card-subtitle>
+        <ion-button size="small" full (click)="createPdf()">Create PDF</ion-button>
+        <ion-button size="small" full (click)="downloadPdf()" color="secondary" [disabled]="!pdfObj">Download PDF</ion-button>
+      </ion-card-subtitle>
     </ion-card-header>
   </ion-card>
 
@@ -18,10 +22,11 @@
     <ion-grid>
       <ion-row>
         <ion-col size="6" size-sm>
-          Grading System
+         <h6>Criteria</h6>
         </ion-col>
         <ion-col size="6" size-sm>
-          Criteria
+          <h6>Description</h6>
+         
         </ion-col>
       </ion-row>
     </ion-grid>
