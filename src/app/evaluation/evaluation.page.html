@@ -19,7 +19,7 @@
 
           <ion-select [(ngModel)]="studentNumber" placeholder="Select a student">
 
-            <ion-select-option *ngFor="let student of evaluationInfo" value="{{student.studentNumber}}"  > {{student.firstName}}  </ion-select-option> 
+            <ion-select-option *ngFor="let student of evaluationInfo" value="{{student.studentNumber}}"  > {{student.firstName}} {{student.middleName}} {{student.lastName}} {{student.suffix}} </ion-select-option> 
 
           </ion-select>
         </ion-item>
