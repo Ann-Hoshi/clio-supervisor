@@ -51,10 +51,19 @@ export class ApiService {
   getFiles(data){
     return this.http.post('http://clio-rms.com/backend/getFiles.php',data)
   }
+  getReportFiles(data){
+    return this.http.post('http://clio-rms.com/backendstudent/getReportFiles.php',data)
+  }
   getFile(data){
     return this.http.post('http://clio-rms.com/backendstudent/getFile.php',data)
   }
+  getReportFile(data){
+    return this.http.post('http://clio-rms.com/backendstudent/getReportFile.php',data)
+  }
   uploadForm(data){
     return this.http.post('http://clio-rms.com/backendstudent/uploadForm.php',data)
+  }
+  uploadReportForm(data){
+    return this.http.post('http://clio-rms.com/backendstudent/uploadReportForm.php',data)
   }
 }

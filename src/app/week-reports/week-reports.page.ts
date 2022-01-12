@@ -46,7 +46,7 @@ export class WeekReportsPage implements OnInit {
         studentNumber : this.studentNumber
       }
 
-      this._apiService.getFiles(data).subscribe((res:any) => {
+      this._apiService.getReportFiles(data).subscribe((res:any) => {
         console.log("SUCCESS ===",res);
         
         this.accountInfo = res.result;
@@ -83,7 +83,7 @@ export class WeekReportsPage implements OnInit {
       id : id
     }
 
-    this._apiService.getFile(data).subscribe((res:any) => {
+    this._apiService.getReportFile(data).subscribe((res:any) => {
       console.log("SUCCESS ===",res);
 
         this.fileInfo = res.result

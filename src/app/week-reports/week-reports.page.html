@@ -17,7 +17,7 @@
   <ion-card *ngFor="let res of accountInfo" >
 
     <ion-item>
-      <ion-label> PDF Name: {{res.fileName}}  </ion-label>
+      <ion-label> PDF Name:  Week {{res.fileName}}  </ion-label>
       <ion-button color="primary" (click)="download(res.id)" >
         Download &nbsp;  <ion-icon name="cloud-download"></ion-icon>
       </ion-button>

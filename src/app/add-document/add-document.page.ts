@@ -18,6 +18,7 @@ import { sample } from 'rxjs/operators';
 })
 export class AddDocumentPage implements OnInit {
   fileName : any;
+  weekNumber : any;
   fileTransfer : FileTransferObject;
   option : any;
   nativePath : any;
@@ -53,21 +54,25 @@ export class AddDocumentPage implements OnInit {
 
   uploadForm() {
    
-    if(this.fileName==null){
-      this.presentToast("File Name is Empty!")
+    if(this.weekNumber==null){
+      this.presentToast("Week Number is Empty!")
       
     }else if(this.nativePath==null){
       this.presentToast("No PDF File Attached!")
     }else{
+
+      this.fileName = new Date().getTime() + '.pdf';
+
       let data = {
         studentNumber :  this.studentNumber,
-        fileName : 'week' + this.fileName + '.pdf'
+        fileName : this.fileName ,
+        weekNumber : this.weekNumber
       }
-      this._apiService.uploadForm(data).subscribe((res:any) => {
+      this._apiService.uploadReportForm(data).subscribe((res:any) => {
   
         let options: FileUploadOptions = {
           fileKey: 'file',
-          fileName: 'week' + this.fileName + '.pdf',
+          fileName: this.fileName,
           chunkedMode: false,
           headers: {}, 
         }
@@ -121,7 +126,7 @@ export class AddDocumentPage implements OnInit {
         {
          text: 'Ok',
          handler: () => {
-          this.router.navigate(['/week-reports']);
+          this.router.navigate(['/week-reports/'+this.studentNumber]);
            console.log('Confirm Okay');
          }
        }
