@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>CLIO</ion-title>
+    <ion-button slot="start" fill="outline">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>PDF Week Reports</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card *ngFor="let res of accountInfo" >
+
+    <ion-item>
+      <ion-label> PDF Name: {{res.fileName}}  </ion-label>
+      <ion-button color="primary" (click)="download(res.id)" >
+        Download &nbsp;  <ion-icon name="cloud-download"></ion-icon>
+      </ion-button>
+    </ion-item>
+    
+
+  </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/add-document/',studentNumber]">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

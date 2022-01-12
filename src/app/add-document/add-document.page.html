@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>CLIO</ion-title>
+    <ion-button slot="start" fill="outline">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title> Add PDF Forms and Documents</ion-card-title>
+    </ion-card-header>
+  <ion-card-content>
+
+    <ion-item>
+      <ion-label> Week Number: </ion-label>
+      <ion-input type="number" [(ngModel)]="fileName"  placeholder="Enter week number"></ion-input>
+     
+        
+      <ion-button  fill="outline" (click)="selectForm()">Select PDF file</ion-button>
+
+      <ion-button  fill="outline" (click)="uploadForm()">Save</ion-button>
+     
+    </ion-item>
+    
+    
+
+  </ion-card-content>
+  </ion-card>
+
+
+
+
+  
+</ion-content>

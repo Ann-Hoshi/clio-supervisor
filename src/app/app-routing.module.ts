@@ -42,9 +42,26 @@ const routes: Routes = [
   {
     path: 'list-of-students-weekly-report/:studentNumber',
     loadChildren: () => import('./list-of-students-weekly-report/list-of-students-weekly-report.module').then( m => m.ListOfStudentsWeeklyReportPageModule)
-  },  {
+  },
+  {
     path: 'grading',
     loadChildren: () => import('./grading/grading.module').then( m => m.GradingPageModule)
+  },
+  {
+    path: 'week-reports/:studentNumber',
+    loadChildren: () => import('./week-reports/week-reports.module').then( m => m.WeekReportsPageModule)
+  },
+  {
+    path: 'certificate',
+    loadChildren: () => import('./certificate/certificate.module').then( m => m.CertificatePageModule)
+  },
+  {
+    path: 'add-document/:studentNumber',
+    loadChildren: () => import('./add-document/add-document.module').then( m => m.AddDocumentPageModule)
+  },
+  {
+    path: 'list-week-pdf',
+    loadChildren: () => import('./list-week-pdf/list-week-pdf.module').then( m => m.ListWeekPdfPageModule)
   },
 
 ];

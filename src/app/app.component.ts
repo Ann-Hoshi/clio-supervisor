@@ -30,9 +30,15 @@ export class AppComponent {
   weeklyReport(){
     this.router.navigate(['/list-of-students']);
   }
+  weekReports(){
+    this.router.navigate(['/list-week-pdf']);
+  }
 
   evaluation(){
     this.router.navigate(['/evaluation']);
+  }
+  certificate(){
+    this.router.navigate(['/certificate']);
   }
 
   concerns(){

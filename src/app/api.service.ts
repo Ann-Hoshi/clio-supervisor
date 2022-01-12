@@ -30,6 +30,9 @@ export class ApiService {
   evaluationRemarks(data){
     return this.http.post('http://clio-rms.com/backend/evaluationRemarks.php',data)
   }
+  certificate(data){
+    return this.http.post('http://clio-rms.com/backend/certificate.php',data)
+  }
   concerns(data){
     return this.http.post('http://clio-rms.com/backend/concerns.php',data)
   }
@@ -44,5 +47,14 @@ export class ApiService {
   }
   gradingSystem(data){
     return this.http.post('http://clio-rms.com/backendstudent/gradingSystem.php',data)
+  }
+  getFiles(data){
+    return this.http.post('http://clio-rms.com/backend/getFiles.php',data)
+  }
+  getFile(data){
+    return this.http.post('http://clio-rms.com/backendstudent/getFile.php',data)
+  }
+  uploadForm(data){
+    return this.http.post('http://clio-rms.com/backendstudent/uploadForm.php',data)
   }
 }

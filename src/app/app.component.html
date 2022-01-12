@@ -24,6 +24,13 @@
 
       <ion-menu-toggle>
         <ion-item>
+          <ion-icon name="folder" slot="start"></ion-icon>
+          <ion-label (click)="weekReports()">PDF Week Reports</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item>
           <ion-icon name="medal" slot="start"></ion-icon>
           <ion-label (click)="gradingSystem()">Grading System</ion-label>
         </ion-item>
@@ -33,6 +40,15 @@
         <ion-item>
           <ion-icon name="document" slot="start"></ion-icon>
           <ion-label (click)="evaluation()">Evaluation</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+    
+
+      <ion-menu-toggle>
+        <ion-item>
+          <ion-icon name="flag" slot="start"></ion-icon>
+          <ion-label (click)="certificate()">Certificate</ion-label>
         </ion-item>
       </ion-menu-toggle>
 
