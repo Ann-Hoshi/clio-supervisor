@@ -10,6 +10,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { present } from '@ionic/core/dist/types/utils/overlays';
 
 @Component({
   selector: 'app-evaluation',
@@ -228,7 +229,15 @@ export class EvaluationPage implements OnInit {
        }, {
          text: 'Yes',
          handler: () => {
-           this.saveEvaluation();
+
+          if(this.studentNumber==null){
+              this.presentToast('No selected student!')
+          }else if(this.nativePath==null){
+            this.presentToast('No selected file!')
+          }else{
+            this.saveEvaluation();
+          }
+          
           
          }
        }
