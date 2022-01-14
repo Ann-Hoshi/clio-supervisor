@@ -65,6 +65,8 @@ export class AccountEditPagePage implements OnInit {
         this.contactNumber = this.accountInfo.contactNo;
         this.companyName = this.accountInfo.companyName;
         this.password = "";
+
+        this.fileName = this.accountInfo.supervisorImage;
         this.src = `http://www.clio-rms.com/backend/uploads/${this.accountInfo.supervisorImage}`;
       
   
@@ -85,9 +87,7 @@ export class AccountEditPagePage implements OnInit {
 
   accountEditPageSave(){
 
-    if(this.blob==null){
-      this.presentToast("No Image Attached!")
-    }else if(this.contactNumber==null){
+    if(this.contactNumber==null){
       this.presentToast("Contact Number is Empty!")
     }else if(this.password==null){
       this.presentToast("Password is Empty!")
@@ -107,7 +107,14 @@ export class AccountEditPagePage implements OnInit {
       this._apiService.editAccount(data).subscribe((res:any) => {
         console.log("SUCCESS ===",res);
         
-        this.startUpload();
+        if(this.blob==null){
+          this.presentToast('Account updated successfully.')
+          this.router.navigate(['/account']);
+        }else{ this.startUpload();}
+
+
+        
+
         
       },(error:any) => {
         console.log("ERROR ===", error);
@@ -194,8 +201,9 @@ async uploadData(formData: FormData) {
       .pipe(
           finalize(() => {
               loading.dismiss();
-              this.presentToast('Account updated successfully.')
-              this.router.navigate(['/account']);
+
+             this.presentToast('Account updated successfully.')
+             this.router.navigate(['/account']);
           })
       )
       .subscribe(res => {

@@ -63,38 +63,7 @@ export class AccountPage implements OnInit {
     });
   }
 
-  ionViewWillEnter(){
-    this.storage.create();
-    this.storage.get('session_storage').then((res)=>{
-      this.datauser = res;
-
-      let data = {
-        username : this.datauser.username
-      }
-
-      this._apiService.account(data).subscribe((res:any) => {
-        console.log("SUCCESS ===",res);
-        
-        this.accountInfo = res.result;
-        
-        this.firstName = this.accountInfo.firstName;
-        this.lastName = this.accountInfo.lastName;
-        this.middleName = this.accountInfo.middleName;
-        this.suffix = this.accountInfo.suffix;
-        this.companyName = this.accountInfo.companyName;
-        this.contactNo = this.accountInfo.contactNo;
-
-        this.src = `http://www.clio-rms.com/backend/uploads/${this.accountInfo.supervisorImage}`;
-        
-      
-  
-      },(error:any) => {
-        console.log("ERROR ===", error);
-      }
-      )
-      
-    
-    });
+  ionViewWillEnter(){this.ngOnInit();
   }
 
   account(){
