@@ -45,7 +45,8 @@
         <ion-col size="6" size-sm>
 
       
-          <ion-select placeholder="Select a student" placeholder="Select score">
+          <ion-select [(ngModel)]="res.score" placeholder="Select a student" placeholder="Select score" (ionChange)="printDetails()">
+
             <ion-select-option value="5">5</ion-select-option>
             <ion-select-option value="4">4</ion-select-option>
             <ion-select-option value="3">3</ion-select-option>
@@ -59,15 +60,5 @@
     </ion-grid>
   </ion-card>
 
-  <ion-card>
-    <ion-card-header>
-     
-      <ion-item>
-        <ion-label position="floating">Input Total Score</ion-label>
-        <ion-input [(ngModel)]="total" type="number" ></ion-input>
-      </ion-item>
 
-    </ion-card-header>
-    
-  </ion-card>
 </ion-content>

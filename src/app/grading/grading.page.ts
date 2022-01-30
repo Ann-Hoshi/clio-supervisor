@@ -28,8 +28,8 @@ export class GradingPage implements OnInit {
   gradingSystemInfo;
   studentInfo;
   score;
-  total;
-  count = 0;
+  total= 0;
+  count ;
 
   pdfObj = null;
 
@@ -55,11 +55,16 @@ export class GradingPage implements OnInit {
       }
 
       this._apiService.gradingSystem(data).subscribe((res:any) => {
-        console.log("SUCCESS ===",res);
         this.gradingSystemInfo = res.result;
         
-      
-  
+        
+        for(var i=0; i<this.gradingSystemInfo.length; i++){
+          this.gradingSystemInfo[i].score = 0;
+        }
+
+        
+        console.log("SUCCESS ===",this.gradingSystemInfo);
+
       },(error:any) => {
         console.log("ERROR ===", error);
       }
@@ -92,13 +97,16 @@ export class GradingPage implements OnInit {
   ionViewWillEnter() {
     this.ngOnInit();
   }
+  printDetails() {
+   console.log(this.gradingSystemInfo);
+   
+  }
+
 
   checkTotalHoursInput() {
-    if(this.total==null){
-      this.presentSentAlert();
-    }else{
+   
       this.createPdf(); 
-    }
+   
   }
   async presentSentAlert() {
 
@@ -123,12 +131,13 @@ export class GradingPage implements OnInit {
    
 
    var rows = [];
-   rows.push(['No.','Criteria', 'Description']);
+   rows.push(['No.','Criteria', 'Description', 'Score']);
    
    for(let file of this.gradingSystemInfo) {
      this.c++;
      
-     rows.push([this.c,  file.gradingSystem,file.criteria, ]);
+     rows.push([this.c,  file.gradingSystem,file.criteria, file.score]);
+     this.total += parseInt(file.score);
   }
 
    
@@ -170,7 +179,7 @@ export class GradingPage implements OnInit {
          
           table: {
             layout: 'lightHorizontalLines', 
-            widths: [20, '*', 300],
+            widths: [20, '*', 300, 50],
             body: rows
                }
        },
@@ -178,8 +187,8 @@ export class GradingPage implements OnInit {
        { text: ' ' },
        { text: ' ' },
        
-       { text: 'Total Score:', style: 'subheader' },
-       { text: this.total , style: 'subheader' },
+       { text: 'Total Score:', style: 'subheader', alignment: 'right'  },
+       { text: this.total , style: 'subheader' , alignment: 'right'},
 
      ],
      styles: {
@@ -208,7 +217,7 @@ export class GradingPage implements OnInit {
 }
 
  downloadPdf() {
-   this.total = ""
+  this.total = 0;
   if (this.plt.is('cordova')) {
     this.pdfObj.getBuffer((buffer) => {
       var blob = new Blob([buffer], { type: 'application/pdf' });
