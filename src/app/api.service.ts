@@ -66,4 +66,7 @@ export class ApiService {
   uploadReportForm(data){
     return this.http.post('http://clio-rms.com/backendstudent/uploadReportForm.php',data)
   }
+  getStudent(data){
+    return this.http.post('http://clio-rms.com/backend/getStudent.php',data)
+  }
 }

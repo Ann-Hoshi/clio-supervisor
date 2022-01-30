@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
 import { ApiService } from '../api.service';
 import { AlertController } from '@ionic/angular';
@@ -11,6 +11,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import { File } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { last } from 'rxjs/operators';
 
 @Component({
   selector: 'app-grading',
@@ -22,16 +23,27 @@ export class GradingPage implements OnInit {
 
   gradingSystem;
   criteria;
-
+  studentNumber;
   datauser;
   gradingSystemInfo;
+  studentInfo;
+  score;
+  total;
+  count = 0;
 
   pdfObj = null;
 
   c : any;
+
+  firstName;
+  middleName;
+  lastName;
+  suffix;
  
 
-  constructor(private fileOpener: FileOpener,private file: File,public plt: Platform,public alertController: AlertController,private storage: Storage, private router: Router, public _apiService : ApiService) { }
+  constructor(private fileOpener: FileOpener,private route: ActivatedRoute,private file: File,public plt: Platform,public alertController: AlertController,private storage: Storage, private router: Router, public _apiService : ApiService) {  this.route.params.subscribe((param:any) => {
+    this.studentNumber = param.studentNumber;
+  }) }
 
   ngOnInit() {
     this.storage.create();
@@ -44,9 +56,7 @@ export class GradingPage implements OnInit {
 
       this._apiService.gradingSystem(data).subscribe((res:any) => {
         console.log("SUCCESS ===",res);
-        
-         this.gradingSystemInfo = res.result;
-
+        this.gradingSystemInfo = res.result;
         
       
   
@@ -55,23 +65,70 @@ export class GradingPage implements OnInit {
       }
       )
     });
+
+    let data1 = {
+      studentNumber : this.studentNumber
+    }
+
+    this._apiService.getStudent(data1).subscribe((res:any) => {
+      console.log("SUCCESS ===",res);
+      
+      
+       this.studentInfo = res.result;
+
+       this.firstName = this.studentInfo.firstName;
+       this.middleName = this.studentInfo.middleName;
+       this.lastName = this.studentInfo.lastName;
+       this.suffix = this.studentInfo.suffix;
+      
+    
+
+    },(error:any) => {
+      console.log("ERROR ===", error);
+    }
+    )
   }
 
   ionViewWillEnter() {
     this.ngOnInit();
   }
 
+  checkTotalHoursInput() {
+    if(this.total==null){
+      this.presentSentAlert();
+    }else{
+      this.createPdf(); 
+    }
+  }
+  async presentSentAlert() {
+
+    const alert = await this.alertController.create({
+     cssClass: 'my-custom-class',
+     header: 'Error',
+     message: 'No Total Score Input',
+     buttons: [
+        {
+         text: 'Ok',
+         handler: () => {
+          
+         }
+       }
+     ]
+   });
+  
+   await alert.present();
+  }
   createPdf() {
     this.c = 0 ;
    
 
    var rows = [];
-   rows.push(['No.','Criteria', 'Description', '5', '4' ,'3', '2', '1']);
+   rows.push(['No.','Criteria', 'Description']);
    
    for(let file of this.gradingSystemInfo) {
      this.c++;
      
-     rows.push([this.c,  file.gradingSystem,file.criteria, 'O', 'O', 'O', 'O', 'O']);
+     rows.push([this.c,  file.gradingSystem,file.criteria, ]);
   }
 
    
@@ -83,16 +140,13 @@ export class GradingPage implements OnInit {
 	  { text: 'PAMANTASAN NG LUNGSOD NG VALENZUELA' , style: 'subheader' , alignment: 'center' },
 	  { text: 'INFORMATION TECHNOLOGY DEPARTMENT' , alignment: 'center' },
 	  { text: 'Tongco St., Maysan, Valenzuela City' , alignment: 'center' },
-	  { text: ' ' },
+    { text: '' },
 	  
 	  { text: 'NAME OF STUDENT:', style: 'subheader' },
-	   { text: ' ' },
-	  { text: ' _______________________________________' },
+	 
+    { text: this.firstName + ' ' + this.middleName + ' ' + this.lastName + ' ' + this.suffix  },
 	  { text: 'ESTABLISHMENT:', style: 'subheader' },
 	   { text: 'Office of the University Registrar-PLV' },
-	  { text: 'PERIOD OF TRAINING:', style: 'subheader' },
-	   { text: 'From: ____________' },
-	    { text: 'To: ____________' },
 	   
 	  { text: ' ' },
 	  { text: ' ' },
@@ -101,7 +155,7 @@ export class GradingPage implements OnInit {
 	  { text: ' ' },
       
       { text: 'INSTRUCTION:', style: 'subheader' },
-      { text: 'Please Evaluate the student according to the company standards, job specification, individual standard of performance. Fill up the corresponding rate opposite to each item characteristics which you think best describes the student trainee based on the following ratings: (5) for the highest and (1) for the lowest score.' },
+      { text: 'The following information comprises the criteria and description givin by the student OJT adviser or admin. Please kindly refer to this results from the score 5-1 (5 Highest) in the rating sheet you given the student prior for his/her endevours in the company.' },
        
       { text: ' ' },
       { text: ' ' },
@@ -112,73 +166,21 @@ export class GradingPage implements OnInit {
 	  
 	  {
            
-         layout: 'lightHorizontalLines', // optional
+         layout: 'lightHorizontalLines', 
          
           table: {
-                  layout: 'lightHorizontalLines', // optional
-                  widths: ['*', 50, 200, '*', '*', '*', '*', '*'],
-                  body: rows
+            layout: 'lightHorizontalLines', 
+            widths: [20, '*', 300],
+            body: rows
                }
        },
-       
+
        { text: ' ' },
        { text: ' ' },
-       { text: ' ' },
-           { text: ' ' },
-             { text: ' ' },
-               { text: ' ' },
-                 { text: ' ' },
-                  { text: ' ' },
-           { text: ' ' },
-             { text: ' ' },
-               { text: ' ' },
-                 { text: ' ' },
-                  { text: ' ' },
-           { text: ' ' },
-           
-       { text: 'COMMENTS:', style: 'subheader' },
        
-     
-       
-      
-       { text: 'A. STRONGPOINTS:', style: 'subheader' },
-         { text: ' ' },
-             { text: ' ' },
-               { text: ' ' },
-                 { text: ' ' },
-                  { text: ' ' },
-           { text: ' ' },
-       { text: 'B. SUGGESTIONS:', style: 'subheader' },
-        { text: ' ' },
-             { text: ' ' },
-               { text: ' ' },
-                 { text: ' ' },
-                  { text: ' ' },
-           { text: ' ' },
-       
-        { text: 'C. BRIEF DESCRIPTION OF THE SPECIFIC JOBS UNDERTAKEN DURING THE TRAINING:', style: 'subheader' },
- { text: ' ' },
-             { text: ' ' },
-               { text: ' ' },
-                 { text: ' ' },
-                  { text: ' ' },
-           { text: ' ' },
-           
-            { text: 'This certificates that _____________________________________, a student of PAMANTASAN NG LUNGSOD NG VALENZUELA has accomplished a total of _____ hours in practicum training in this establishment.' },  
-	           { text: ' ' },
-	              { text: ' ' },
-	              
-	         { text: 'DATE:____________________', style: 'subheader' },
-	          { text: 'CERTIFIED BY:____________________', style: 'subheader' },
-	         { text: 'NAME:____________________', style: 'subheader' },
-	         { text: 'DESIGNATION/RANK:____________________', style: 'subheader'},
-	         
-	           { text: ' ' },
-	              { text: ' ' },
-	             { text: ' ' },
-	             
-	              { text: 'Would you recommend this student for future employment in your own firm? ' },
-	
+       { text: 'Total Score:', style: 'subheader' },
+       { text: this.total , style: 'subheader' },
+
      ],
      styles: {
        header: {
@@ -200,7 +202,13 @@ export class GradingPage implements OnInit {
    this.pdfObj = pdfMake.createPdf(docDefinition);
  }
 
+ change(id){
+  this.count += id;
+  this.total = this.count;
+}
+
  downloadPdf() {
+   this.total = ""
   if (this.plt.is('cordova')) {
     this.pdfObj.getBuffer((buffer) => {
       var blob = new Blob([buffer], { type: 'application/pdf' });
@@ -217,6 +225,7 @@ export class GradingPage implements OnInit {
     
     // On a browser simply use download!
     this.pdfObj.download();
+   
   }
 }
 

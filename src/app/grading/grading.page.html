@@ -12,7 +12,7 @@
     <ion-card-header>
       <ion-card-title>Rating Sheet</ion-card-title>
       <ion-card-subtitle>
-        <ion-button size="small" full (click)="createPdf()">Create PDF</ion-button>
+        <ion-button size="small" full (click)="checkTotalHoursInput()">Create PDF</ion-button>
         <ion-button size="small" full (click)="downloadPdf()" color="secondary" [disabled]="!pdfObj">Download PDF</ion-button>
       </ion-card-subtitle>
     </ion-card-header>
@@ -28,6 +28,10 @@
           <h6>Description</h6>
          
         </ion-col>
+        <ion-col size="6" size-sm>
+          <h6>Score 1-5 (5 Highest)</h6>
+         
+        </ion-col>
       </ion-row>
     </ion-grid>
     <ion-grid *ngFor="let res of gradingSystemInfo">
@@ -38,7 +42,32 @@
         <ion-col size="6" size-sm>
            {{res.criteria}}
         </ion-col>
+        <ion-col size="6" size-sm>
+
+      
+          <ion-select placeholder="Select a student" placeholder="Select score">
+            <ion-select-option value="5">5</ion-select-option>
+            <ion-select-option value="4">4</ion-select-option>
+            <ion-select-option value="3">3</ion-select-option>
+            <ion-select-option value="2">2</ion-select-option>
+            <ion-select-option value="1">1</ion-select-option>
+           
+          </ion-select>
+
+       </ion-col>
       </ion-row>
     </ion-grid>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+     
+      <ion-item>
+        <ion-label position="floating">Input Total Score</ion-label>
+        <ion-input [(ngModel)]="total" type="number" ></ion-input>
+      </ion-item>
+
+    </ion-card-header>
+    
   </ion-card>
 </ion-content>

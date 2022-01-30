@@ -24,7 +24,7 @@ export class AppComponent {
   }
 
   gradingSystem(){
-    this.router.navigate(['/grading']);
+    this.router.navigate(['/grading-list']);
   }
 
   weeklyReport(){

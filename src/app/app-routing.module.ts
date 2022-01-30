@@ -44,7 +44,7 @@ const routes: Routes = [
     loadChildren: () => import('./list-of-students-weekly-report/list-of-students-weekly-report.module').then( m => m.ListOfStudentsWeeklyReportPageModule)
   },
   {
-    path: 'grading',
+    path: 'grading/:studentNumber',
     loadChildren: () => import('./grading/grading.module').then( m => m.GradingPageModule)
   },
   {
@@ -63,6 +63,11 @@ const routes: Routes = [
     path: 'list-week-pdf',
     loadChildren: () => import('./list-week-pdf/list-week-pdf.module').then( m => m.ListWeekPdfPageModule)
   },
+  {
+    path: 'grading-list',
+    loadChildren: () => import('./grading-list/grading-list.module').then( m => m.GradingListPageModule)
+  },
+
 
 ];
 
