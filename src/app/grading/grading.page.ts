@@ -224,10 +224,10 @@ export class GradingPage implements OnInit {
       
     
       // Save the PDF to the data Directory of our App
-      this.file.writeFile(this.file.dataDirectory, 'Weekly Report.pdf', blob, { replace: true }).then(fileEntry => {
+      this.file.writeFile(this.file.dataDirectory, this.lastName + ' Performance Evaluation.pdf', blob, { replace: true }).then(fileEntry => {
         // Open the PDf with the correct OS tools
         alert(JSON.stringify("Downloaded and opening pdf file..."));
-        this.fileOpener.open(this.file.dataDirectory + 'Weekly Report.pdf', 'application/pdf');
+        this.fileOpener.open(this.file.dataDirectory + this.lastName + ' Performance Evaluation.pdf', 'application/pdf');
       })
     });
   } else {
